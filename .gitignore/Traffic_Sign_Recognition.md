@@ -52,7 +52,9 @@ I adpot the function of tensorflow 'tf.image.rgb_to_grayscale()' to convert the 
 
 Because the type of this function's return is tensor, so I turn the tensor to numpy.ndarray for the input of LeNet.
 
-\*Then, I normalized the image data, so that the data has mean zero  and equal variance.
+\*And then, I used CLAHE for the gray images.
+
+\*Finally, I normalized the image data, so that the data has mean zero  and equal variance.
 
 I used (pixel - 128.0)/128.0 to realized this and the values after normalized will be in the scope [-1,1]
 
@@ -96,19 +98,25 @@ My final model consisted of the following layers:
 
 To train the model, the cross entroy, mean loss are used and then optimizer (Adam optimizer) .
 
-epoches = 80
+epoches = 40
 
 batch_size = 128
 
 rate = 0.004
 
+keep_prob = 0.8
+
 \####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
 
-\* validation set accuracy of 4410 is 93.3 %
+\* validation set accuracy of 4410 is :
 
-\* test set accuracy of 12630 samples is 91.4%
+   before using CLAHE 93.3 %, after using CLAHE 94.7%
+
+\* test set accuracy of 12630 samples is :
+
+   before using CLAHE 91.4%, after using CLAHE 92.5%
 
 If an iterative approach was chosen:
 
@@ -138,7 +146,9 @@ It has been applied in handwritten digit recognition.
 
 \* How does the final model's accuracy on the training, validation and test set provide evidence that the model is working well?
 
-The validation accuracy is 93.3%.
+The validation accuracy is 94.7%.
+
+The test accuracy is 92.5%.
 
 \###Test a Model on New Images
 
@@ -146,17 +156,17 @@ The validation accuracy is 93.3%.
 
 Here are five German traffic signs that I found on the web:
 
-(1) children crossing
+(1) General caution
 
-(2) general caution
+(2) Ahead only
 
-(3) road work
+(3) Go straight or right
 
-(4) speed limit (70km/h)
+(4) Turn right ahead
 
-(5) trun right ahead
+(5) Speed limit(60km/h)
 
-
+image 1, image 2, image 3, image 5 are common but image 4 is some special for that there is jam on the sign in the image. And the color of the jam block is the same as the color of the sign.
 
 \####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
@@ -166,15 +176,15 @@ Here are the results of the prediction:
 
 |:------------------------------------------------:|:-------------------------------------------------------------:| 
 
-| Children crossing                 		| Right-of-way at the next intersection  		| 
-
 | General caution                   		| General caution 						|
 
-| Road work                         			| Road work								|
+| Ahead only                       			| Ahead only								|
 
-| Speed limit (70km/h)      			| Speed limit (70km/h)					|
+| Go straight or right				| Go straight or right						|
 
-| Turn right ahead                 		 | urn right ahead						|
+| Turn right ahead                 		| Speed limit(100km/h )					|				
+
+| Speed limit(60km/h)				|Speed limit(60km/h)						|
 
 The model was able to correctly guess 4 of the 5 traffic signs, which gives an accuracy of 80%. 
 
@@ -184,7 +194,75 @@ The model was able to correctly guess 4 of the 5 traffic signs, which gives an a
 
 The code for making predictions on my final model is located in section 'Output Top 5 Softmax Probabilities For Each Image Found on the Web'.
 
+(1) For image 1 (real label is Genral caution) , 
 
+​	the top 5 softmax probalities and corresponding signs are:
+
+​    	\* General caution:  	1.0
+
+   	\* Priority road:      	8.7739611e-09
+
+   	\* No vehicles: 		1.8427248e-09
+
+   	\* Traffic signals: 		7.4144552e-11
+
+   	\* End of all speed and passing limits: 	4.6576784e-11
+
+(2) For image 2 (real label is Ahead only), 
+
+​	the top 5 softmax probabilities and corresponding signs are:
+
+   	\* Ahead only:				0.35769865
+
+​	\* Turn left ahead:			0.12679571
+
+​	\* Go straight or left:			0.064969294
+
+​	\* Priority road:				0.05982589
+
+​	\* Turn right ahead:			0.056867138
+
+(3) For image 3 (real label is Go straight or right),
+
+​	the top 5 softmax probalities and corresponding signs are:
+
+​	\* Go straight or right:		0.98904943
+
+​	\* Dangerous curve to the right:		0.0026681675
+
+​	\* End of no passing by vehicles over 3.5 metric tons:	0.002417387
+
+​	\* No passing by vehicles over 3.5 metric tons:	0.0017929407
+
+​	\* Speed limit(80km/h):	0.0011558931
+
+(4) For image 4(real label is turn right ahead),
+
+​	the top 5 softmax probalities and corresponding signs are:
+
+​	\* Speed limit (100 km/h ): 		0.72246784
+
+​	\* Roundabout mandatory:		0.21349429
+
+​	\* Road work:					0.02994056
+
+​	\* End of no passing by vehicles over 3.5 metric tons:	0.016721809
+
+​	\* Dangerous curve to the right:	0.0032694682
+
+(5) For image 5(real label is Speed limit (60km/h)),
+
+​	the top 5 softmax probabilities and corresponding signs are:
+
+​	\* Speed limit ( 60km/h): 	0.88889474
+
+​	\* Speed limit( 80km/h):	0.099308684
+
+​	\* Bycycles crossing:		0.0051573757
+
+​	\* Speed limit(50km/h):	0.005087791
+
+​	\* Slippery road:			0.00034633157
 
 \### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
 
