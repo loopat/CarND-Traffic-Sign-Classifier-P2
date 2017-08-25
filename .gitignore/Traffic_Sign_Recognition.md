@@ -198,21 +198,21 @@ The code for making predictions on my final model is located in section 'Output 
 
 ​	the top 5 softmax probalities and corresponding signs are:
 
-​    	\* General caution:  	1.0
+​  \* General caution:  	1.0
 
-   	\* Priority road:      	8.7739611e-09
+​	\* Priority road:      	8.7739611e-09
 
-   	\* No vehicles: 		1.8427248e-09
+​	\* No vehicles: 		1.8427248e-09
 
-   	\* Traffic signals: 		7.4144552e-11
+​	\* Traffic signals: 		7.4144552e-11
 
-   	\* End of all speed and passing limits: 	4.6576784e-11
+​	\* End of all speed and passing limits: 	4.6576784e-11
 
 (2) For image 2 (real label is Ahead only), 
 
 ​	the top 5 softmax probabilities and corresponding signs are:
 
-   	\* Ahead only:				0.35769865
+​	\* Ahead only:				0.35769865
 
 ​	\* Turn left ahead:			0.12679571
 
